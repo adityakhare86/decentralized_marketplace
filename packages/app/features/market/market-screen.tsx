@@ -7,6 +7,8 @@ import { ConnectButton } from '../../thirdweb'
 import { client } from '../../client'
 import { Navbar } from '../navbar/navbar'
 import { ProductCard } from '../product-card/product-card'
+import { useContract } from '@thirdweb-dev/react'
+const CONTRACT_ADDRESS = "0xE4e64c4d638AcE0CaEfE81b0AB1cf64b272Cd3CA";
 
 export function MarketScreen() {
   const { contract } = useContract(CONTRACT_ADDRESS);
