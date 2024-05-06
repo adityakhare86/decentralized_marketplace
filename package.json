@@ -1,10 +1,12 @@
 {
   "name": "minor-project",
   "private": true,
-  "workspaces": [
-    "./apps/*",
-    "./packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "./apps/*",
+      "./packages/*"
+    ]
+  },
   "scripts": {
     "native": "cd apps/expo && yarn start",
     "watch": "yarn workspaces foreach -pi run watch",
@@ -32,6 +34,7 @@
     "@manypkg/cli": "^0.19.1",
     "check-dependency-version-consistency": "^3.0.3",
     "eslint": "^8.21.0",
+    "ethers": "^6.12.1",
     "node-gyp": "^9.3.1",
     "prettier": "^2.7.1",
     "thirdweb": "^5.16.0",

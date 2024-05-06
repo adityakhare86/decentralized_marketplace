@@ -9,6 +9,7 @@ import { Navbar } from '../navbar/navbar'
 import { ProductCard } from '../product-card/product-card'
 
 export function MarketScreen() {
+  const { contract } = useContract(CONTRACT_ADDRESS);
   const marketItems = [
     {
       id: 1,
