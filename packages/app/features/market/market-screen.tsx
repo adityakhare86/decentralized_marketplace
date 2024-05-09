@@ -3,7 +3,7 @@ import { Navbar } from '../navbar/navbar'
 import { ProductCard } from '../product-card/product-card'
 import { hexToNumber, readContract } from 'thirdweb'
 import { useState, useEffect } from 'react'
-import { contract } from '../../contract'
+import { contract } from '/home/aditya/cminor/packages/app/contract'
 
 export function MarketScreen() {
   const [marketItems, setMarketItems] = useState<any>([])
