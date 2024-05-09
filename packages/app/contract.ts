@@ -2,7 +2,7 @@ import { sepolia } from 'thirdweb/chains'
 import { client } from '../app/client'
 import { getContract } from 'thirdweb'
 
-const CONTRACT_ADDRESS = '0x1813045223E47377e8f4dd3A87B53b9658C6112A'
+const CONTRACT_ADDRESS = '0xD6c2b2A790743D57924b749F21472ba7d572b237'
 
 export const contract = getContract({
   client,
