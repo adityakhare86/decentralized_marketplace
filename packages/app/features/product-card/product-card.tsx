@@ -1,20 +1,24 @@
 import { Card, H2, Paragraph, XStack, Button, Image } from '@my/ui'
+import { useEffect } from 'react'
 import { createParam } from 'solito'
 import { useLink } from 'solito/link'
+import { hexToNumber } from 'thirdweb'
 
-interface ProductCardProps {
-  id: number
+interface Product {
+  productId: any
   title: string
   description: string
-  price: number
-  imageUrl: string
+  price: any
+  image: string
 }
 
-export function ProductCard({ id, title, description, price, imageUrl }: ProductCardProps) {
-  const { useParam } = createParam<{ id: string }>()
-  const [paramId] = useParam('id')
+export function ProductCard({ product }: { product: Product }) {
+  const { productId, title, description, price, image } = product
+
+  const numericId = productId ? hexToNumber(productId) : null
+
   const link = useLink({
-    href: `/product/${id}`,
+    href: `/product/${numericId}`,
   })
 
   return (
@@ -35,7 +39,7 @@ export function ProductCard({ id, title, description, price, imageUrl }: Product
       <Card.Footer padded>
         <XStack flex={1} />
         <Button fontWeight="bold" size="$4" themeInverse borderRadius="$10">
-          {price} ⟠ ETH
+          {hexToNumber(price)} ⟠ ETH
         </Button>
       </Card.Footer>
       <Card.Background>
@@ -43,7 +47,7 @@ export function ProductCard({ id, title, description, price, imageUrl }: Product
           resizeMode="contain"
           alignSelf="center"
           borderRadius="$8"
-          source={{ uri: imageUrl }}
+          source={{ uri: image }}
           width={800}
           height={800}
         />

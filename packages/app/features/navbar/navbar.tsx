@@ -20,7 +20,7 @@ export function Navbar() {
   })
 
   return (
-    <XStack f={0.01} jc="space-between" ai="center" p="$8" width="100%">
+    <XStack f={0.01} jc="space-between" ai="center" p="$8" width="100%" bg="black">
       <Text color="white" fontFamily="$heading" fontSize="$9" fontWeight="bold">
         BL✦CKIFY.
       </Text>

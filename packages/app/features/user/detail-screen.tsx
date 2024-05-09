@@ -76,7 +76,7 @@ export function UserDetailScreen() {
       date: '23/04/2024',
     },
     {
-      transactionId: 'T001',
+      transactionId: 'T004',
       productId: 'P001',
       buyerId: 'B001',
       status: 0,
@@ -84,7 +84,7 @@ export function UserDetailScreen() {
       date: '21/04/2024',
     },
     {
-      transactionId: 'T002',
+      transactionId: 'T005',
       productId: 'P002',
       buyerId: 'B002',
       status: 1,
@@ -92,7 +92,7 @@ export function UserDetailScreen() {
       date: '21/04/2024',
     },
     {
-      transactionId: 'T003',
+      transactionId: 'T006',
       productId: 'P003',
       buyerId: 'B003',
       status: 2,
@@ -100,7 +100,7 @@ export function UserDetailScreen() {
       date: '20/04/2024',
     },
     {
-      transactionId: 'T003',
+      transactionId: 'T007',
       productId: 'P003',
       buyerId: 'B003',
       status: 2,
@@ -108,7 +108,7 @@ export function UserDetailScreen() {
       date: '20/04/2024',
     },
     {
-      transactionId: 'T001',
+      transactionId: 'T008',
       productId: 'P001',
       buyerId: 'B001',
       status: 0,

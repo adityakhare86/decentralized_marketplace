@@ -1,48 +1,56 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { YStack, H1, XStack, Image, Text, Separator, Input, Button } from '@my/ui'
 import { Navbar } from '../navbar/navbar'
-import { useLink } from 'solito/link'
 import { Trash } from '@tamagui/lucide-icons'
+import { hexToNumber, readContract } from 'thirdweb'
+import { contract } from '../../contract'
+import { createParam } from 'solito'
+import { Link } from 'solito/link'
+import { LoadingScreen } from '../loading/loading'
 
-interface ProductScreenProps {
-  id: number
-}
+const { useParam } = createParam<{ id: string }>()
 
-export function ProductScreen({ id }: ProductScreenProps) {
-  const marketItems = [
-    {
-      id: 1,
-      title: 'Item 1',
-      description:
-        'Description for Item 1 What you mean ? Can you see me now, bro no Anuv Jain bro I hate it',
-      price: 0.0009,
-      imageUrl:
-        'https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*',
-      sellerName: 'VVX',
-      sellerId: '0x123456789',
-    },
-  ]
-
-  // const { useParam } = createParam<{ id: number }>()
-  // const [productId] = useParam('id')
-
-  // Write logic to check if the user is the seller
+export function ProductScreen() {
   const isSeller = false
-
-  const product = marketItems.find((item) => item.id === id) || marketItems[0]
-  const link = useLink({
-    href: `/user/${product.sellerId}`,
-  })
+  const [marketItems, setMarketItems] = useState<any>([])
+  const [productId] = useParam('id')
+  const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(0)
   const [total, setTotal] = useState(0)
 
+  useEffect(() => {
+    async function fetchMarketItems() {
+      setLoading(true)
+      try {
+        const items = await readContract({
+          contract: contract,
+          method: 'viewAllProducts',
+        })
+        setMarketItems(items)
+      } catch (error) {
+        console.error('Error fetching market items:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchMarketItems()
+  }, [])
+
+  if (loading) {
+    return <LoadingScreen />
+  }
+
+  const product = marketItems?.find((item) => hexToNumber(item?.productId) === Number(productId))
+  const sellerLink = `/user/${product?.seller}`
+
   const handleQuantityChange = (e: any) => {
     setQuantity(Number(e.target.value))
-    setTotal(Number(e.target.value * product.price))
+    setTotal(Number(e.target.value * hexToNumber(product.price)))
   }
 
   const handleBuyClick = () => {
-    console.log(`Purchased ${quantity} of ${product.title} for ${product.price * quantity} ETH`)
+    console.log(`Purchased ${quantity} of ${product.title} for ${total} ETH`)
   }
 
   const handleDelete = () => {
@@ -56,7 +64,7 @@ export function ProductScreen({ id }: ProductScreenProps) {
         <Image
           resizeMode="contain"
           borderRadius="$8"
-          source={{ uri: product.imageUrl }}
+          source={{ uri: product.image }}
           width={500}
           height={600}
         />
@@ -71,21 +79,22 @@ export function ProductScreen({ id }: ProductScreenProps) {
           </Text>
           <Text fontSize="$8" color="grey">
             Seller:{' '}
-            <Text
-              textDecorationStyle="solid"
-              textDecorationLine="underline"
-              hoverStyle={{ scale: 1.2 }}
-              fontSize="$8"
-              color="$blue7"
-              selectable={false}
-              {...link}
-            >
-              {product.sellerName}
-            </Text>
+            <Link style={{ color: 'white' }} href={sellerLink}>
+              <Text
+                textDecorationStyle="solid"
+                textDecorationLine="underline"
+                hoverStyle={{ scale: 1.02 }}
+                fontSize="$6"
+                color="$blue7"
+                selectable={false}
+              >
+                {product.seller}
+              </Text>
+            </Link>
           </Text>
           <Separator />
           <Text fontSize="$8" color="white">
-            Price: {product.price} ETH
+            Price: {hexToNumber(product.price)} ETH
           </Text>
           {!isSeller ? (
             <XStack ai="center" gap="$2">
