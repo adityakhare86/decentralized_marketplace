@@ -1,40 +1,64 @@
 import React from 'react'
 import { YStack, Button, XStack, Text, Card } from '@my/ui'
 import { Check, X } from '@tamagui/lucide-icons'
+import { hexToNumber } from 'thirdweb'
+import { prepareContractCall, sendTransaction, resolveMethod, numberToHex } from 'thirdweb'
+import { contract } from '../../contract'
+import { useActiveAccount } from 'thirdweb/react'
 
-interface Transaction {
-  transactionId: string
-  productId: string
-  buyerId: string
+interface Order {
+  orderId: `0x${string}`
+  productId: `0x${string}`
   status: number
-  volume: number
-  date: string
+  amountPaid: `0x${string}`
+  quantity: `0x${string}`
+  seller: string
 }
 
-interface TransactionCardProps {
-  transaction: Transaction
-}
-
-const OrderCard: React.FC<TransactionCardProps> = ({ transaction }) => {
+export function OrderCard({ order }: { order: Order }) {
+  const { orderId, seller, productId, status, amountPaid, quantity } = order
+  const account = useActiveAccount()!
   const getCardColor = (status: number) => {
     switch (status) {
       case 0:
         return 'white'
       case 1:
-        return '$green10'
-      case 2:
         return '$red10'
+      case 2:
+        return '$green10'
       default:
         return 'gray'
     }
   }
 
-  const handleAccept = () => {
-    // Write logic to accept the product
+  async function handleAccept(account, _orderId) {
+    const transaction = await prepareContractCall({
+      contract,
+      method: 'acceptOrder',
+      params: [_orderId],
+    })
+    const { transactionHash } = await sendTransaction({
+      transaction,
+      account,
+    })
+    // if (transactionHash) {
+    //   alert(`Verificaton hash : {\n}Verify here : ${transactionHash}`)
+    // }
   }
 
-  const handleCancel = () => {
-    // Write logic to cancel the product
+  async function handleCancel(account, _orderId) {
+    const transaction = await prepareContractCall({
+      contract,
+      method: 'cancelOrder',
+      params: [_orderId],
+    })
+    const { transactionHash } = await sendTransaction({
+      transaction,
+      account,
+    })
+    // if (transactionHash) {
+    //   alert(`Order Cancelled : {\n}Verificaton hash : ${transactionHash}`)
+    // }
   }
 
   return (
@@ -42,26 +66,29 @@ const OrderCard: React.FC<TransactionCardProps> = ({ transaction }) => {
       size="$4"
       width={900}
       height={100}
-      bg={getCardColor(transaction.status)}
+      bg={getCardColor(status)}
       padding="$4"
       borderRadius="$8"
     >
       <XStack ai="center" jc="space-between">
         <YStack>
           <Text fontSize="$6" color="black" fow="700">
-            Transaction ID: {transaction.transactionId}
+            Order ID: {hexToNumber(orderId)}
           </Text>
           <Text fontSize="$6" color="black" fow="700">
-            Product ID: {transaction.productId}
+            Seller: {seller}
           </Text>
-          <Text fontSize="$6" color="black">
-            Date: {transaction.date}
+          <Text fontSize="$6" color="black" fow="700">
+            Product ID: {hexToNumber(productId)}
           </Text>
         </YStack>
-        <Text fos="$7" fow="700" color="black">
-          {transaction.volume} ETH
+        <Text fontSize="$6" color="black">
+          Q: {hexToNumber(quantity)}
         </Text>
-        {!transaction.status ? (
+        <Text fos="$7" fow="700" color="black">
+          {hexToNumber(amountPaid)} ETH
+        </Text>
+        {!status ? (
           <XStack gap="$4">
             <Button
               circular
@@ -70,7 +97,7 @@ const OrderCard: React.FC<TransactionCardProps> = ({ transaction }) => {
               scaleIcon={2.5}
               size="$5"
               color="white"
-              onPress={handleAccept}
+              onPress={() => handleAccept(account, orderId)}
               bg="$green10"
               hoverStyle={{
                 backgroundColor: '$green10',
@@ -86,7 +113,7 @@ const OrderCard: React.FC<TransactionCardProps> = ({ transaction }) => {
               scaleIcon={2.5}
               size="$5"
               color="white"
-              onPress={handleCancel}
+              onPress={() => handleCancel(account, orderId)}
               bg="red"
               hoverStyle={{
                 backgroundColor: 'red',

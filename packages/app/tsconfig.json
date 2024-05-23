@@ -5,8 +5,5 @@
     "composite": true,
     "jsx": "react-jsx"
   },
-  "references": [],
-  "files": [
-    "contract.ts",
-  ]
+  "references": []
 }

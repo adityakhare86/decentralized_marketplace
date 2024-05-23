@@ -3,11 +3,13 @@ import { Navbar } from '../navbar/navbar'
 import { ProductCard } from '../product-card/product-card'
 import { hexToNumber, readContract } from 'thirdweb'
 import { useState, useEffect } from 'react'
-import { contract } from '/home/aditya/cminor/packages/app/contract'
+import { contract } from '../../contract'
+// import { useActiveAccount } from 'thirdweb/react'
 
 export function MarketScreen() {
   const [marketItems, setMarketItems] = useState<any>([])
-
+  // const activeAccount = useActiveAccount()
+  // console.log(activeAccount)
   useEffect(() => {
     async function fetchMarketItems() {
       try {
@@ -41,7 +43,9 @@ export function MarketScreen() {
       >
         <XStack jc="center" gap="$4" fw="wrap">
           {marketItems.length ? (
-            marketItems.map((item) => <ProductCard key={item.productId} product={item} />)
+            marketItems
+              .filter((item) => !!item.productId)
+              .map((item) => <ProductCard key={item.productId} product={item} />)
           ) : (
             <H1>Loading ...</H1>
           )}

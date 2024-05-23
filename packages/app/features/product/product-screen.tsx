@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react'
 import { YStack, H1, XStack, Image, Text, Separator, Input, Button } from '@my/ui'
 import { Navbar } from '../navbar/navbar'
 import { Trash } from '@tamagui/lucide-icons'
-import { hexToNumber, readContract } from 'thirdweb'
+import { hexToNumber, readContract, toEther, toWei } from 'thirdweb'
 import { contract } from '../../contract'
 import { createParam } from 'solito'
-import { Link } from 'solito/link'
+import { Link, useLink } from 'solito/link'
 import { LoadingScreen } from '../loading/loading'
+import { prepareContractCall, sendTransaction, resolveMethod } from 'thirdweb'
+import { useActiveAccount } from 'thirdweb/react'
 
 const { useParam } = createParam<{ id: string }>()
 
 export function ProductScreen() {
-  const isSeller = false
+  const account = useActiveAccount()!
   const [marketItems, setMarketItems] = useState<any>([])
   const [productId] = useParam('id')
   const [loading, setLoading] = useState(true)
@@ -42,6 +44,7 @@ export function ProductScreen() {
   }
 
   const product = marketItems?.find((item) => hexToNumber(item?.productId) === Number(productId))
+  const isSeller = account?.address === product.seller ? true : false
   const sellerLink = `/user/${product?.seller}`
 
   const handleQuantityChange = (e: any) => {
@@ -49,12 +52,36 @@ export function ProductScreen() {
     setTotal(Number(e.target.value * hexToNumber(product.price)))
   }
 
-  const handleBuyClick = () => {
-    console.log(`Purchased ${quantity} of ${product.title} for ${total} ETH`)
+  async function handleBuyClick(account, _productId, _quantity, _price) {
+    const transaction = await prepareContractCall({
+      contract,
+      method: 'buyProduct',
+      params: [_productId, _quantity],
+      value: BigInt(_quantity * _price),
+    })
+    const { transactionHash } = await sendTransaction({
+      transaction,
+      account,
+    })
+    if (transactionHash) {
+      alert(`Verificaton hash : ${transactionHash}`)
+    }
   }
 
-  const handleDelete = () => {
-    // Write logic to delete the product from seller's shop
+  async function handleDelete(account, _productId) {
+    const transaction = await prepareContractCall({
+      contract,
+      method: 'deleteProduct',
+      params: [_productId],
+    })
+    const { transactionHash } = await sendTransaction({
+      transaction,
+      account,
+    })
+    if (transactionHash) {
+      alert(`Verificaton hash : ${transactionHash}`)
+      window.location.href = `http://localhost:3000/shop/${account.address}`
+    }
   }
 
   return (
@@ -96,7 +123,7 @@ export function ProductScreen() {
           <Text fontSize="$8" color="white">
             Price: {hexToNumber(product.price)} ETH
           </Text>
-          {!isSeller ? (
+          {account && !isSeller ? (
             <XStack ai="center" gap="$2">
               <Text fontSize="$8" color="white">
                 Quantity:
@@ -117,28 +144,36 @@ export function ProductScreen() {
               Total: {total} ETH + gas 🔥
             </Text>
           ) : null}
-          {isSeller ? (
-            <Button
-              fontWeight="bold"
-              icon={Trash}
-              size="$5"
-              color="white"
-              onPress={handleDelete}
-              bg="red"
-              hoverStyle={{
-                backgroundColor: 'red',
-              }}
-              pressStyle={{
-                backgroundColor: '$red7',
-              }}
-            >
-              Delete Product
-            </Button>
-          ) : (
-            <Button fontWeight="bold" size="$5" onPress={handleBuyClick} theme="dark">
-              Buy Now
-            </Button>
-          )}
+          {account &&
+            (isSeller ? (
+              <Button
+                fontWeight="bold"
+                icon={Trash}
+                size="$5"
+                color="white"
+                onPress={() => handleDelete(account, product.productId)}
+                bg="red"
+                hoverStyle={{
+                  backgroundColor: 'red',
+                }}
+                pressStyle={{
+                  backgroundColor: '$red7',
+                }}
+              >
+                Delete Product
+              </Button>
+            ) : (
+              <Button
+                fontWeight="bold"
+                size="$5"
+                onPress={() =>
+                  handleBuyClick(account, product.productId, quantity, hexToNumber(product.price))
+                }
+                theme="dark"
+              >
+                Buy Now
+              </Button>
+            ))}
         </YStack>
       </XStack>
     </YStack>
