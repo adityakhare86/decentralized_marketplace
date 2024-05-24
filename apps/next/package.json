@@ -27,5 +27,8 @@
     "@tamagui/next-plugin": "^1.95.3",
     "@types/node": "^18.6.4",
     "eslint-config-next": "^13.0.4"
+  },
+  "engines": {
+    "yarn": "^4.1.0"
   }
 }
