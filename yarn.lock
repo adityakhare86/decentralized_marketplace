@@ -21663,7 +21663,7 @@ __metadata:
     ethers: "npm:^6.12.1"
     node-gyp: "npm:^9.3.1"
     prettier: "npm:^2.7.1"
-    thirdweb: "npm:^5.16.0"
+    thirdweb: "npm:^5.13.0"
     turbo: "npm:^1.10.3"
     typescript: "npm:^5.3.3"
   languageName: unknown
@@ -26178,7 +26178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"thirdweb@npm:5.16.0, thirdweb@npm:^5.16.0":
+"thirdweb@npm:5.16.0":
   version: 5.16.0
   resolution: "thirdweb@npm:5.16.0"
   dependencies:
