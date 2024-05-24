@@ -7235,6 +7235,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@passwordless-id/webauthn@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "@passwordless-id/webauthn@npm:1.6.1"
+  checksum: 10/39ed113a817596bb36e1996a6d60a614e3994507e810e5033e93abcf8069ebb58b83b1f27bd3ac907501018c1dea60b63084a1b0a0170f3628d6ee2ae4d3ccc0
+  languageName: node
+  linkType: hard
+
 "@pedrouid/environment@npm:^1.0.1":
   version: 1.0.1
   resolution: "@pedrouid/environment@npm:1.0.1"
@@ -12647,7 +12654,7 @@ __metadata:
     react-native-safe-area-context: "npm:4.6.3"
     seed-random: "npm:^2.2.0"
     solito: "npm:^3.0.0"
-    thirdweb: "npm:^5.16.0"
+    thirdweb: "npm:^5.13.0"
   languageName: unknown
   linkType: soft
 
@@ -19180,6 +19187,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"input-otp@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "input-otp@npm:1.2.4"
+  peerDependencies:
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  checksum: 10/dde21c35334864f0add026f6a66e87eac572278c24edb72c97ba9541e5133f3d6750a4230b9a9c6093f4bd84633e4e417c8849ef844a565834392b9119b4110f
+  languageName: node
+  linkType: hard
+
 "internal-ip@npm:4.3.0":
   version: 4.3.0
   resolution: "internal-ip@npm:4.3.0"
@@ -19772,6 +19789,15 @@ __metadata:
   peerDependencies:
     ws: "*"
   checksum: 10/9cacd5cf59f67deb51e825580cd445ab1725ecb05a67c704050383fb772856f3cd5e7da8ad08f5a3bd2823680d77d099459d0c6a7037972a74d6429af61af440
+  languageName: node
+  linkType: hard
+
+"isows@npm:1.0.4":
+  version: 1.0.4
+  resolution: "isows@npm:1.0.4"
+  peerDependencies:
+    ws: "*"
+  checksum: 10/a3ee62e3d6216abb3adeeb2a551fe2e7835eac87b05a6ecc3e7739259bf5f8e83290501f49e26137390c8093f207fc3378d4a7653aab76ad7bbab4b2dba9c5b9
   languageName: node
   linkType: hard
 
@@ -26193,6 +26219,77 @@ __metadata:
   languageName: node
   linkType: hard
 
+"thirdweb@npm:^5.13.0":
+  version: 5.24.0
+  resolution: "thirdweb@npm:5.24.0"
+  dependencies:
+    "@coinbase/wallet-sdk": "npm:4.0.0-rc.2"
+    "@emotion/react": "npm:11.11.4"
+    "@emotion/styled": "npm:11.11.0"
+    "@google/model-viewer": "npm:2.1.1"
+    "@noble/curves": "npm:1.4.0"
+    "@noble/hashes": "npm:1.4.0"
+    "@passwordless-id/webauthn": "npm:^1.6.1"
+    "@radix-ui/react-dialog": "npm:1.0.5"
+    "@radix-ui/react-focus-scope": "npm:1.0.4"
+    "@radix-ui/react-icons": "npm:1.3.0"
+    "@radix-ui/react-tooltip": "npm:1.0.7"
+    "@tanstack/react-query": "npm:5.29.2"
+    "@walletconnect/ethereum-provider": "npm:2.12.2"
+    abitype: "npm:1.0.0"
+    fast-text-encoding: "npm:^1.0.6"
+    fuse.js: "npm:7.0.0"
+    input-otp: "npm:^1.2.4"
+    mipd: "npm:0.0.7"
+    node-libs-browser: "npm:2.2.1"
+    uqr: "npm:0.1.2"
+    viem: "npm:2.10.9"
+  peerDependencies:
+    "@aws-sdk/client-lambda": ^3
+    "@aws-sdk/credential-providers": ^3
+    "@react-native-async-storage/async-storage": ^1
+    amazon-cognito-identity-js: ^6
+    aws-amplify: ^5
+    ethers: ^5 || ^6
+    expo-web-browser: ^13
+    react: ">=18"
+    react-native: ">=0.70"
+    react-native-aes-gcm-crypto: ^0.2
+    react-native-quick-crypto: ">=0.6.1"
+    shamir-secret-sharing: ^0.0.3
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    "@aws-sdk/client-lambda":
+      optional: true
+    "@aws-sdk/credential-providers":
+      optional: true
+    "@react-native-async-storage/async-storage":
+      optional: true
+    amazon-cognito-identity-js:
+      optional: true
+    aws-amplify:
+      optional: true
+    ethers:
+      optional: true
+    expo-web-browser:
+      optional: true
+    react:
+      optional: true
+    react-native-aes-gcm-crypto:
+      optional: true
+    react-native-quick-crypto:
+      optional: true
+    shamir-secret-sharing:
+      optional: true
+    typescript:
+      optional: true
+  bin:
+    thirdweb: dist/esm/cli/bin.js
+    thirdweb-cli: dist/esm/cli/bin.js
+  checksum: 10/f37956d6238b9f75e9e0d4666b2a7bfa9123504c55c73e574fa25bc00f5484cca829949c9213e5d985482427f9558e09cbe6fd2bf00c1d1dcd6f8445f7ab2899
+  languageName: node
+  linkType: hard
+
 "thread-loader@npm:^4.0.1":
   version: 4.0.2
   resolution: "thread-loader@npm:4.0.2"
@@ -27471,6 +27568,27 @@ __metadata:
     vc: dist/index.js
     vercel: dist/index.js
   checksum: 10/96045b47580d553a3807713f256128ee5c3531fde7288c6eba2d61fa54f920a9490e93f7be13e53bfa046137d087bc6def3071905aa57882d66bbea349055367
+  languageName: node
+  linkType: hard
+
+"viem@npm:2.10.9":
+  version: 2.10.9
+  resolution: "viem@npm:2.10.9"
+  dependencies:
+    "@adraffy/ens-normalize": "npm:1.10.0"
+    "@noble/curves": "npm:1.2.0"
+    "@noble/hashes": "npm:1.3.2"
+    "@scure/bip32": "npm:1.3.2"
+    "@scure/bip39": "npm:1.2.1"
+    abitype: "npm:1.0.0"
+    isows: "npm:1.0.4"
+    ws: "npm:8.13.0"
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/ead8a2b52c9d90be3a54852c9bdac19417fec0652e8b144bf00f2d737b203e6667ee786eee511427002deeefefa3cdf3b2e4c817266b7fb3d410927478f8aff1
   languageName: node
   linkType: hard
 
