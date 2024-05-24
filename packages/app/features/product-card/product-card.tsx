@@ -14,7 +14,6 @@ interface Product {
 
 export function ProductCard({ product }: { product: Product }) {
   const { productId, title, description, price, image } = product
-
   const numericId = productId ? hexToNumber(productId) : null
 
   const link = useLink({

@@ -2,21 +2,24 @@ import { Button, XStack, Text } from '@my/ui'
 import { useLink } from 'solito/link'
 import { ConnectButton } from '../../thirdweb'
 import { client } from '../../client'
+import { useActiveAccount } from 'thirdweb/react'
 
 export function Navbar() {
+  const activeAccount = useActiveAccount()
   // Implement Logic to check if the user is logged in
-  const isLoggedIn = true
+  const isLoggedIn = activeAccount ? true : false
 
   const marketLink = useLink({
     href: '/market',
   })
 
+  const profLink = `/user/${activeAccount?.address}`
   const profileLink = useLink({
-    href: '/user/1',
+    href: profLink,
   })
-
+  const shoplink = `/shop/${activeAccount?.address}`
   const shopLink = useLink({
-    href: '/shop/1',
+    href: shoplink,
   })
 
   return (
