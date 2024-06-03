@@ -121,7 +121,7 @@ export function ProductScreen() {
           </Text>
           <Separator />
           <Text fontSize="$8" color="white">
-            Price: {hexToNumber(product.price)} ETH
+            Price: {hexToNumber(product.price)} Wei
           </Text>
           {account && !isSeller ? (
             <XStack ai="center" gap="$2">
@@ -141,7 +141,7 @@ export function ProductScreen() {
           <Separator />
           {total ? (
             <Text fontWeight="bold" fontSize="$8" color="white">
-              Total: {total} ETH + gas 🔥
+              Total: {total} Wei + gas 🔥
             </Text>
           ) : null}
           {account &&

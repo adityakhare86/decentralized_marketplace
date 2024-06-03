@@ -56,7 +56,7 @@ export function TransactionOwnerCard({ transaction }: { transaction: Transaction
           Q : {hexToNumber(quantity)}
         </Text>
         <Text fos="$7" fow="700" color="black">
-          {hexToNumber(amountPaid)} ETH
+          {hexToNumber(amountPaid)} Wei
         </Text>
       </XStack>
     </Card>

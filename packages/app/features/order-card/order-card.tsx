@@ -86,7 +86,7 @@ export function OrderCard({ order }: { order: Order }) {
           Q: {hexToNumber(quantity)}
         </Text>
         <Text fos="$7" fow="700" color="black">
-          {hexToNumber(amountPaid)} ETH
+          {hexToNumber(amountPaid)} Wei
         </Text>
         {!status ? (
           <XStack gap="$4">

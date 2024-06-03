@@ -38,7 +38,7 @@ export function ProductCard({ product }: { product: Product }) {
       <Card.Footer padded>
         <XStack flex={1} />
         <Button fontWeight="bold" size="$4" themeInverse borderRadius="$10">
-          {hexToNumber(price)} ⟠ ETH
+          {hexToNumber(price)} ⟠ Wei
         </Button>
       </Card.Footer>
       <Card.Background>

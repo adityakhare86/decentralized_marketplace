@@ -53,7 +53,7 @@ export function TransactionCard({ transaction }: { transaction: Transaction }) {
           </Text>
         </YStack>
         <Text fos="$7" fow="700" color="black">
-          {hexToNumber(amountPaid)} ETH
+          {hexToNumber(amountPaid)} Wei
         </Text>
       </XStack>
     </Card>
