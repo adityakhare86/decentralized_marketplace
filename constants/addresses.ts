@@ -1,1 +1,1 @@
-export const CONTRACT_ADDRESS = "0xE4e64c4d638AcE0CaEfE81b0AB1cf64b272Cd3CA";
+export const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;

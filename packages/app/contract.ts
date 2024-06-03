@@ -2,7 +2,7 @@ import { sepolia } from "thirdweb/chains";
 import { client } from "../app/client";
 import { getContract } from "thirdweb";
 
-const CONTRACT_ADDRESS = "";
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
 export const contract = getContract({
   client,
